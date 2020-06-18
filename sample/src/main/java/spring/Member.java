@@ -39,7 +39,7 @@ public class Member {
 	
 	public void changePassword(String oldpassword, String newpassword) {
 		System.out.println("old"+ oldpassword);
-		System.out.println("old"+ newpassword);
+		System.out.println("new"+ newpassword);
 		System.out.println("this password=" + this.password);
 		if(!(password.equals(oldpassword) )) {
 			throw new WrongIdPasswordException();
