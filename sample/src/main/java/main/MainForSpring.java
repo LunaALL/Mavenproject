@@ -36,8 +36,7 @@ public class MainForSpring {
 				break;
 			}
 			
-			if (command.startsWith("new ")) {
-				processNewCommand(command.split(" "));
+			if (command.startsWith("new ")) {  
 				continue;
 			} 
 			else if (command.startsWith("change ")) {
