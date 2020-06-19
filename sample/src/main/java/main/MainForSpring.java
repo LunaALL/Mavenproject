@@ -14,6 +14,7 @@ import spring.ChangePasswordService;
 import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
+import spring.MemberinfoPrinter;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
 
@@ -37,6 +38,7 @@ public class MainForSpring {
 			}
 			
 			if (command.startsWith("new ")) {  
+				processNewCommand(command.split(" "));
 				continue;
 			} 
 			else if (command.startsWith("change ")) {
@@ -45,9 +47,24 @@ public class MainForSpring {
 			}else if (command.startsWith("list ")) {
 				processListCommand();
 				continue;
+			} else if (command.startsWith("info ")) {
+				processInfoCommand(command.split(" "));
+				continue;
 			}
 			printHelp();
 		}
+	}
+
+
+	private static void processInfoCommand(String[] arg) {
+		// TODO Auto-generated method stub
+		if(arg.length!=2) {
+			printHelp();
+			return;
+		}
+		MemberinfoPrinter infopr = ctx.getBean("infoPrinter",MemberinfoPrinter.class);
+		infopr.printMemberInfo(arg[1]);
+		
 	}
 
 

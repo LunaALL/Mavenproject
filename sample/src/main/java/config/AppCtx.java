@@ -8,6 +8,7 @@ import spring.MemberDAO;
 import spring.MemberListPrinter;
 import spring.MemberPrinter;
 import spring.MemberRegisterService;
+import spring.MemberinfoPrinter;
 
 @Configuration
 public class AppCtx {
@@ -27,7 +28,7 @@ public class AppCtx {
 	public ChangePasswordService changePwdSvc() 
 	{
 		ChangePasswordService pwdsvc = new ChangePasswordService();
-		pwdsvc.setMemberDao(memberdao());
+		//pwdsvc.setMemberDao(memberdao());  @autowired 선언했츰. 
 		return pwdsvc;	
 	}
 	
@@ -39,5 +40,11 @@ public class AppCtx {
 	public MemberListPrinter listprinter() {
 		return new MemberListPrinter(memberdao(),memberprinter());
 		
+	}
+	
+	@Bean
+	public MemberinfoPrinter infoPrinter() {
+		MemberinfoPrinter memberinfo = new MemberinfoPrinter();
+		return memberinfo;
 	}
 }
