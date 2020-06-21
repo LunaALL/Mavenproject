@@ -5,27 +5,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.DuplicateFormatFlagsException;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import assembler.Assembler;
-import config.AppCtx;
 import spring.ChangePasswordService;
-import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
-import spring.MemberinfoPrinter;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
 
-public class MainForSpring {
-	
-	private static ApplicationContext ctx = null;
-	
+public class MainForAssembler {
 
 	public static void main(String[] args) throws IOException {
-		
-		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 		BufferedReader reader = 
 				new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
@@ -37,52 +26,26 @@ public class MainForSpring {
 				break;
 			}
 			
-			if (command.startsWith("new ")) {  
+			if (command.startsWith("new ")) {
 				processNewCommand(command.split(" "));
 				continue;
 			} 
 			else if (command.startsWith("change ")) {
 				processChangeCommand(command.split(" "));
 				continue;
-			}else if (command.startsWith("list ")) {
-				processListCommand();
-				continue;
-			} else if (command.startsWith("info ")) {
-				processInfoCommand(command.split(" "));
-				continue;
 			}
 			printHelp();
 		}
 	}
 
-
-	private static void processInfoCommand(String[] arg) {
-		// TODO Auto-generated method stub
-		if(arg.length!=2) {
-			printHelp();
-			return;
-		}
-		MemberinfoPrinter infopr = ctx.getBean("infoPrinter",MemberinfoPrinter.class);
-		infopr.printMemberInfo(arg[1]);
-		
-	}
-
-
-	private static void processListCommand() {
-		// TODO Auto-generated method stub
-		MemberListPrinter mlp = ctx.getBean("listPrinter",MemberListPrinter.class);
-		mlp.printAll();
-	}
-
+	private static Assembler assembler = new Assembler();
 
 	private static void processNewCommand(String[] arg) {
 		if (arg.length != 5) {
 			printHelp();
 			return;
 		}
-		
-		MemberRegisterService regSvc = ctx.getBean(MemberRegisterService.class);
-	
+		MemberRegisterService regSvc = assembler.getMemberRegisterService();
 		RegisterRequest req = new RegisterRequest();
 		req.setEmail(arg[1]);
 		System.out.println("set name pass[3]"+arg[3]);
@@ -95,8 +58,8 @@ public class MainForSpring {
 			return;
 		}
 		try {
-			Long num=regSvc.regist(req);
-			System.out.println("등록했습니다."+num+ "번째 데이터 입니다.");
+			regSvc.regist(req);
+			System.out.println("등록했습니다.\n");
 		} catch (DuplicateFormatFlagsException e) {
 			System.out.println("이미 존재하는 이메일입니다.\n");
 		}
@@ -107,8 +70,8 @@ public class MainForSpring {
 			printHelp();
 			return;
 		}
-		ChangePasswordService changePwdSvc = ctx.getBean(ChangePasswordService.class);
-		
+		ChangePasswordService changePwdSvc = 
+				assembler.getChangePasswordService();
 		System.out.println(arg[3]);
 		try {
 			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
@@ -128,6 +91,5 @@ public class MainForSpring {
 		System.out.println("change 이메일 현재비번 변경비번");
 		System.out.println();
 	}
-	
-	
+
 }

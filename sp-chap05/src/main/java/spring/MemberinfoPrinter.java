@@ -1,9 +1,10 @@
 package spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
-
+@Component("infoPrinter")
 public class MemberinfoPrinter {
 	private MemberDAO memberdao;
 	private MemberPrinter memberprinter;

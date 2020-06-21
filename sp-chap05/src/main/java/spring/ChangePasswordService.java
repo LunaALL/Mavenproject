@@ -3,7 +3,7 @@ package spring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+@Component
 public class ChangePasswordService {
 	
 	@Autowired          //객체를 자동주입함. (찾아서) 
