@@ -14,14 +14,16 @@ public class ConnectionTest {
 	       
 	       try {
 	    	   //드라이버 로딩
-	    	   //com.mysql.jdbc.driver , driver라는 클래스가 있음.
-	    	  Class.forName("com.mysql.jdbc.driver");
+	    	   //com.mysql.jdbc.driver , Driver라는 클래스가 있음. mysql 8.0부터는 클래스 이름이 변경됨. 밑에꺼처럼. 
+	    	  Class.forName("com.mysql.cj.jdbc.Driver");
 	    	  
 	    	  //연결
 	    	  //드라이버 매니저에게 Connection 객체 요청
 	    	  //커넥션을 얻기 위한 url 역시, db종류마다 다름
-	    	  //mysql : jdbc:mysql://localhost:포트번호/사용할db이름"
-	    	  String url = "jdbc:mysql://localhost:3306/newpoint";
+	    	  //mysql : jdbc:mysql://localhost:포트번호/사용할db이름 <- 8.0이상 부터는 serverTimezone=UTC이거 붙여야함. "
+	    	  String url = "jdbc:mysql://localhost:3306/newpoint?serverTimezone=UTC";
+	    	  
+	    	  
 	    	  conn= DriverManager.getConnection(url, "root", "woo123456789");
 	    	  System.out.println("연결 완료");
 	       }catch(ClassNotFoundException e) {
