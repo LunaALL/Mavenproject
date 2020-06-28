@@ -1,13 +1,11 @@
 package config;
 
 
-
-
-
-
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import spring.MemberDao;
 
 @Configuration
 public class Appctx {
@@ -23,5 +21,10 @@ public class Appctx {
 		ds.setMaxActive(10);
 		return ds;
 		
+	}
+	
+	@Bean
+	public MemberDao memberDao() {
+		return new MemberDao(dataSource());
 	}
 }
