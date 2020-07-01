@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class MemberinfoPrinter {
-	private MemberDAO memberdao;
+	private MemberDao memberdao;
 	private MemberPrinter memberprinter;
 	
 	
 	public void printMemberInfo(String email) {
-		Member member=memberdao.selectMemberbyEmail(email);
+		Member member=memberdao.selectByEmail(email);
 		if(member==null) {
 			System.out.println("데이터 없음\n");
 			return;
@@ -19,7 +19,7 @@ public class MemberinfoPrinter {
 		System.out.println();
 	}
 	@Autowired
-	public void setMemberdao(MemberDAO memberdao) {
+	public void setMemberdao(MemberDao memberdao) {
 		this.memberdao=memberdao;
 		
 	}

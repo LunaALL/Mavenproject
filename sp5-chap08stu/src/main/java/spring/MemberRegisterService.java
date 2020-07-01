@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component;
 
 
 public class MemberRegisterService {
-	private MemberDAO memberDAO;
+	private MemberDao memberDAO;
 
-	public MemberRegisterService(MemberDAO memberDAO) {
+	public MemberRegisterService(MemberDao memberDAO) {
 		this.memberDAO = memberDAO;
 	}
 	
 	public Long regist(RegisterRequest req) {
 		//존재하는 이메일인지 확인한다
-		Member member = memberDAO.selectMemberbyEmail(req.getEmail());
+		Member member = memberDAO.selectByEmail(req.getEmail());
 		if(member!=null) {
 			throw new MemberException("중복 이메일 발견"+req.getEmail());
 		}
