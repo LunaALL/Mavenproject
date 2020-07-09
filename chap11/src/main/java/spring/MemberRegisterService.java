@@ -16,7 +16,7 @@ public class MemberRegisterService {
 		//존재하는 이메일인지 확인한다
 		Member member = memberDAO.selectByEmail(req.getEmail());
 		if(member!=null) {
-			throw new MemberException("중복 이메일 발견"+req.getEmail());
+			throw new DuplicateMemberException("중복 이메일 발견"+req.getEmail());
 		}
 		
 		Member newMember = new Member(

@@ -20,7 +20,6 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.configureViewResolvers(registry);
 		registry.jsp("/WEB-INF/view/",".jsp");
 	}
 }
