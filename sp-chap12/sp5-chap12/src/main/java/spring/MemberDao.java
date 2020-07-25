@@ -42,7 +42,7 @@ public class MemberDao {
 			return  results.isEmpty() ? null : results.get(0);
 		}
 		
-	public void insert(Member member) {
+	public void insert(final Member member) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			@Override
